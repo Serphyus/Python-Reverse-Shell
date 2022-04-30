@@ -1,0 +1,2 @@
+IP="{ip}"
+PORT={port}
