@@ -1,2 +1,5 @@
-IP="{ip}"
-PORT={port}
+# Config is formatted and
+# imported when compiling
+
+IP      = "{ip}"
+PORT    = {port}
