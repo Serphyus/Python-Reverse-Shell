@@ -2,7 +2,7 @@ import sys
 import socket
 import threading
 import subprocess
-from typing import Union, Sequence
+from typing import Sequence
 
 import config
 
@@ -38,7 +38,7 @@ def stdout(sock: socket.socket, process: subprocess.Popen):
         process.kill()
 
 
-def create_process(shell_interface: Union[str, Sequence[str]]) -> subprocess:
+def create_process(shell_interface: Sequence[str]) -> subprocess:
     # redirect stderr to the stdout pipe to minimize
     # required threads for sending output to server
     process = subprocess.Popen(
