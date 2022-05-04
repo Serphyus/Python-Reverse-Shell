@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 import argparse
 import subprocess
@@ -68,7 +69,7 @@ def compile_src(
 
     # due to how pyinstaller works you can either have no console
     # or no window and since interactive powershell can be hidden
-    # after start by using the "-w 1" arguments the shell will
+    # after start by using the "-w 1" arguments the shell we will
     # compile using noconsole
     command += "-F --clean --noconsole --disable-windowed-traceback --log-level ERROR "
 
@@ -83,7 +84,10 @@ def compile_src(
     debug_msg(f"compiling {src_path.name}")
     process = exec_cmd(command)
 
-    if not dist_path.exists() or process.stderr != b'':
+    ext = ".exe" if sys.platform == "win32" else ""
+    executable_path = Path(dist_path, src_path.stem + ext)
+
+    if not executable_path.is_file():
         error_msg(f"unable to compile {src_path.name}")
         exit()
 
